@@ -14,7 +14,7 @@ public class Paint {
 	}
 
 	public static void loadImages(){
-		String imageDir = "C:/Users/Zadow/Documents/00Abolished/GraphicalResources/";		
+		String imageDir = "images/";		
 		
 		File dir = new File(imageDir);
 		for (File file : dir.listFiles()) {		
