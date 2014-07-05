@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import graphics.Paint;
 import entities.Hero;
 
-public class MainGame extends JFrame {			
+public class Game extends JFrame {		
+	public static Game current;
+	
 	private Image dbImage;
 	private Graphics dbGraphics;
 	
@@ -30,6 +32,8 @@ public class MainGame extends JFrame {
 				hero.crouch();
 			} else if (keyCode == KeyEvent.VK_SPACE) {
 				hero.stab();
+			} else if (keyCode == KeyEvent.VK_ESCAPE) {
+				Game.current.dispose();
 			}
 		}
 		
@@ -45,8 +49,9 @@ public class MainGame extends JFrame {
 		
 	}
 	
-	public MainGame() throws Exception {	
+	public Game() throws Exception {	
 		//JPanel panel = new JPanel();
+		Game.current = this;
 	    Paint.loadImages();
 	    hero = new Hero();
 	    
@@ -73,6 +78,6 @@ public class MainGame extends JFrame {
 	}
 	
 	public static void main(String args[]) throws Exception	{ 
-		new MainGame();    
+		new Game();    
 	}
 }
