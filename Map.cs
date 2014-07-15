@@ -77,21 +77,11 @@ namespace Abolished {
         }
     }
 
-
     // <summary>
     // This class represents a game map, providing a common interface to
-    // the underlying Tiled map data. Gameplay-related functionality such
-    // as tile passability should be calculated here; graphics stuff goes
-    // in MapRenderer.
+    // the underlying Tiled map data.
     // </summary>
     public class Map {
-        public Dictionary<int, PropertyDict> TileProps; // tile id => tile properties
-
-        public MapRenderer Renderer;
-
-        public List<Tile[,]> Layers; // Tile layers, from bottom to top
-        public Tile[,] Tiles; // Combined "topmost" layer (i.e. each tile from the highest layer at that position)
-
         // Width and height, in number of tiles
         public int Width;
         public int Height;
@@ -99,6 +89,11 @@ namespace Abolished {
         // Width and height of each tile, in pixels
         public int TileWidth;
         public int TileHeight;
+
+        public List<Tile[,]> Layers; // Tile layers, from bottom to top
+        public Tile[,] Tiles; // Combined "topmost" layer (i.e. each tile from the highest layer at that position)
+
+        public MapRenderer Renderer;
 
         public Map() {
             Renderer = new MapRenderer(this);
@@ -110,7 +105,7 @@ namespace Abolished {
             TileWidth = tmx.TileWidth;
             TileHeight = tmx.TileHeight;
 
-            // Temporary tmx tile id => TileType
+            // Temporary tmx tile id => Tile
             var tileTypes = new Dictionary<int, Tile>();
 
             // tileTypes[0] is the default "air" tile
@@ -136,10 +131,10 @@ namespace Abolished {
                 var id = ts.FirstGid;
                 for (var h = hStart; h < hEnd; h += hInc) {
                     for (var w = wStart; w < wEnd; w += wInc) {                        
-                        var tileType = new Tile();
-                        tileType.TileSheet = tileSheet;
-                        tileType.Rectangle = new Rectangle(w, h, ts.TileWidth, ts.TileHeight);                        
-                        tileTypes[id] = tileType;
+                        var tile = new Tile();
+                        tile.TileSheet = tileSheet;
+                        tile.Rectangle = new Rectangle(w, h, ts.TileWidth, ts.TileHeight);                        
+                        tileTypes[id] = tile;
                         id += 1;
                     }
                 }
